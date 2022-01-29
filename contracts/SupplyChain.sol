@@ -52,7 +52,7 @@ contract SupplyChain {
   // <modifier: isOwner
   modifier isOwner(address _owner) { require (msg.sender == _owner); _;}
 
-  modifier verifyCaller (address _address) { 
+  modifier verifyCaller(address _address) { 
     require (msg.sender == _address); 
     _;
   }
@@ -125,6 +125,7 @@ contract SupplyChain {
   // 6. call the event associated with this function!
   function buyItem(uint _sku) public payable paidEnough(items[_sku].price) forSale(items[_sku].state, items[_sku].price) checkValue(_sku)
   {
+    require(msg.value >=items[_sku].price));
     items[_sku].seller.transfer(items[_sku].price);
     items[_sku].buyer = msg.sender;
     items[_sku].state = State.Sold;

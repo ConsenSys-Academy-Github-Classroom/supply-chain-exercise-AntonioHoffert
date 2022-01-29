@@ -64,10 +64,10 @@ contract SupplyChain {
 
   modifier checkValue(uint _sku) {
     //refund them after pay for item (why it is before, _ checks for logic before func)
-    _;
     uint _price = items[_sku].price;
     uint amountToRefund = msg.value - _price;
     items[_sku].buyer.transfer(amountToRefund);
+    _;
   }
 
   // For each of the following modifiers, use what you learned about modifiers
@@ -125,7 +125,7 @@ contract SupplyChain {
   // 6. call the event associated with this function!
   function buyItem(uint _sku) public payable paidEnough(items[_sku].price) forSale(items[_sku].state, items[_sku].price) checkValue(_sku)
   {
-    require(msg.value >=items[_sku].price));
+    require(msg.value >=items[_sku].price);
     items[_sku].seller.transfer(items[_sku].price);
     items[_sku].buyer = msg.sender;
     items[_sku].state = State.Sold;

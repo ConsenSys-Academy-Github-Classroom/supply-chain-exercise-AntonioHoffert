@@ -64,10 +64,11 @@ contract SupplyChain {
 
   modifier checkValue(uint _sku) {
     //refund them after pay for item (why it is before, _ checks for logic before func)
+    _;
     uint _price = items[_sku].price;
     uint amountToRefund = msg.value - _price;
     items[_sku].buyer.transfer(amountToRefund);
-    _;
+    
   }
 
   // For each of the following modifiers, use what you learned about modifiers

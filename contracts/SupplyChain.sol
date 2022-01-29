@@ -53,7 +53,7 @@ contract SupplyChain {
   modifier isOwner(address _owner) { require (msg.sender == _owner); _;}
 
   modifier verifyCaller(address _address) { 
-    require (msg.sender == _address); 
+    require(msg.sender == _address); 
     _;
   }
 

@@ -123,7 +123,7 @@ contract SupplyChain {
   //    - check the value after the function is called to make 
   //      sure the buyer is refunded any excess ether sent. 
   // 6. call the event associated with this function!
-  function buyItem(uint _sku) public payable paidEnough(items[_sku].price) forSale(items[_sku].state, items[_sku].price)
+  function buyItem(uint _sku) public payable paidEnough(items[_sku].price) forSale(items[_sku].state, items[_sku].price) checkValue(_sku)
   {
     items[_sku].seller.transfer(items[_sku].price);
     items[_sku].buyer = msg.sender;
@@ -137,6 +137,7 @@ contract SupplyChain {
   // 2. Change the state of the item to shipped. 
   // 3. call the event associated with this function!
      function shipItem(uint _sku) public sold(items[_sku].state) verifyCaller(items[_sku].seller)  {
+    require(msg.sender == items[_sku].seller);
     items[_sku].state = State.Shipped;
     emit LogShipped(_sku);
   }

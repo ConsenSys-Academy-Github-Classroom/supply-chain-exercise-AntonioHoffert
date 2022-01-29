@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-pragma solidity >=0.5.16 <0.9.0;
+pragma solidity >=0.5.17 <0.9.0;
 
 contract SupplyChain {
   address public owner;
@@ -137,7 +137,7 @@ contract SupplyChain {
   //    - the person calling this function is the seller. 
   // 2. Change the state of the item to shipped. 
   // 3. call the event associated with this function!
-     function shipItem(uint _sku) public sold(items[_sku].state) verifyCaller(items[_sku].seller)  {
+    function shipItem(uint _sku) public sold(items[_sku].state) verifyCaller(items[_sku].seller)  {
     require(msg.sender == items[_sku].seller);
     items[_sku].state = State.Shipped;
     emit LogShipped(_sku);

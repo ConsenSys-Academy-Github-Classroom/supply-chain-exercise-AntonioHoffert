@@ -52,12 +52,14 @@ contract SupplyChain {
   // <modifier: isOwner
   modifier isOwner(address _owner) { require (msg.sender == _owner); _;}
 
-  modifier verifyCaller(address _address) { 
+  modifier verifyCaller(address _address) {
+    if(msg.sender != _address) { revert(); }
     require(msg.sender == _address); 
     _;
   }
 
   modifier paidEnough(uint _price) {
+    if(msg.value < _price) { revert(); }
     require(msg.value >= _price);
     _;
   }
